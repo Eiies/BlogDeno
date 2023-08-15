@@ -5,9 +5,13 @@ export default function Wave() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
   const wave = {
+    // 振幅
     amplitude: 50,
     frequency: 0.01,
     speed: 0.1,
+
+    // 波浪整体高度
+    yOffset: 100,
   };
   let time = 0;
 
@@ -41,17 +45,19 @@ export default function Wave() {
       time += wave.speed;
 
       ctx.beginPath();
-      ctx.moveTo(0, canvas.height / 2);
+      // 调整起始点的 y 坐标
+      ctx.moveTo(0, canvas.height - wave.yOffset);
 
       for (let x = 0; x < canvas.width; x += 10) {
-        const y = canvas.height / 2 +
+        const y = canvas.height - wave.yOffset +
           Math.sin(x * wave.frequency + time) * wave.amplitude;
         ctx.lineTo(x, y);
       }
 
       ctx.lineTo(canvas.width, canvas.height);
       ctx.lineTo(0, canvas.height);
-      ctx.fillStyle = "rgba(0, 0, 255, 0.3)";
+      // 波浪颜色
+      ctx.fillStyle = "rgba(0, 255, 255, 0.3)";
       ctx.fill();
       ctx.closePath();
     };
@@ -59,5 +65,9 @@ export default function Wave() {
     animate();
   }, []);
 
-  return <canvas ref={canvasRef} id="waveCanvas"></canvas>;
+  return (
+    <>
+      <canvas ref={canvasRef} id="waveCanvas"></canvas>
+    </>
+  );
 }
