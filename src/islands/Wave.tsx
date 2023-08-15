@@ -1,18 +1,29 @@
-// 波浪效果
 import { useEffect, useRef } from "https://esm.sh/preact@10.15.1/hooks";
 
 export default function Wave() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
-  const wave = {
-    // 振幅
-    amplitude: 50,
-    frequency: 0.01,
-    speed: 0.1,
-
-    // 波浪整体高度
-    yOffset: 100,
-  };
+  const waveLayers = [
+    {
+      // 振幅
+      amplitude: 50,
+      // 频率
+      frequency: 0.01,
+      // 速度
+      speed: 0.1,
+      // Y 轴偏移
+      yOffset: 100,
+      // 颜色
+      color: "rgba(0, 255, 255, 0.3)",
+    },
+    {
+      amplitude: 30,
+      frequency: 0.02,
+      speed: 0.15,
+      yOffset: 120,
+      color: "rgba(255, 0, 0, 0.3)",
+    },
+  ];
   let time = 0;
 
   useEffect(() => {
@@ -42,24 +53,24 @@ export default function Wave() {
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      time += wave.speed;
+      time += 0.1;
 
-      ctx.beginPath();
-      // 调整起始点的 y 坐标
-      ctx.moveTo(0, canvas.height - wave.yOffset);
+      for (const wave of waveLayers) {
+        ctx.beginPath();
+        ctx.moveTo(0, canvas.height - wave.yOffset);
 
-      for (let x = 0; x < canvas.width; x += 10) {
-        const y = canvas.height - wave.yOffset +
-          Math.sin(x * wave.frequency + time) * wave.amplitude;
-        ctx.lineTo(x, y);
+        for (let x = 0; x < canvas.width; x += 10) {
+          const y = canvas.height - wave.yOffset +
+            Math.sin(x * wave.frequency + time) * wave.amplitude;
+          ctx.lineTo(x, y);
+        }
+
+        ctx.lineTo(canvas.width, canvas.height);
+        ctx.lineTo(0, canvas.height);
+        ctx.fillStyle = wave.color;
+        ctx.fill();
+        ctx.closePath();
       }
-
-      ctx.lineTo(canvas.width, canvas.height);
-      ctx.lineTo(0, canvas.height);
-      // 波浪颜色
-      ctx.fillStyle = "rgba(0, 255, 255, 0.3)";
-      ctx.fill();
-      ctx.closePath();
     };
 
     animate();
