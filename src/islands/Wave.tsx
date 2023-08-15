@@ -6,22 +6,22 @@ export default function Wave() {
   const waveLayers = [
     {
       // 振幅
-      amplitude: 50,
+      amplitude: 50 + Math.random() * 20, // 添加随机性
       // 频率
       frequency: 0.01,
       // 速度
       speed: 0.1,
       // Y 轴偏移
-      yOffset: 100,
+      yOffset: 300,
       // 颜色
-      color: "rgba(0, 255, 255, 0.3)",
+      color: "rgba(36, 135, 218, 0.3)",
     },
     {
-      amplitude: 30,
-      frequency: 0.02,
+      amplitude: 60 + Math.random() * 20, // 添加随机性
+      frequency: 0.005,
       speed: 0.15,
-      yOffset: 120,
-      color: "rgba(255, 0, 0, 0.3)",
+      yOffset: 250,
+      color: "rgba(206, 194, 147, 0.3)",
     },
   ];
   let time = 0;
