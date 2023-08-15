@@ -67,7 +67,8 @@ export default function Wave() {
 
   return (
     <>
-      <canvas ref={canvasRef} id="waveCanvas"></canvas>
+      <canvas ref={canvasRef} id="waveCanvas" className="h-96 w-full">
+      </canvas>
     </>
   );
 }
