@@ -1,4 +1,27 @@
+import { useEffect, useState } from "https://esm.sh/preact@10.15.1/hooks";
+
 export function Article() {
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    async function fetchArticles() {
+      try {
+        const response = await fetch("/api/articles");
+        const data = await response.json();
+        setArticles(data);
+      } catch (error) {
+        console.error("Error fetching articles:", error);
+      }
+    }
+
+    fetchArticles();
+
+    const interval = setInterval(fetchArticles, 60000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
   return (
     <section class="text-gray-600 body-font">
       <div class="container px-5 py-24 mx-auto">
@@ -7,10 +30,10 @@ export function Article() {
             <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
               <img
                 class="lg:h-48 md:h-36 w-full object-cover object-center"
-                src="https://www.dmoe.cc/random.php"
+                src="api/images"
                 alt="blog"
               />
-              <div class="p-6">
+              <div class="p-6 bg-red-300">
                 <h2 class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">
                   CATEGORY
                 </h2>
@@ -74,10 +97,10 @@ export function Article() {
             <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
               <img
                 class="lg:h-48 md:h-36 w-full object-cover object-center"
-                src="https://www.dmoe.cc/random.php"
+                src="api/images"
                 alt="blog"
               />
-              <div class="p-6">
+              <div class="p-6 bg-red-300">
                 <h2 class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">
                   CATEGORY
                 </h2>
@@ -141,10 +164,10 @@ export function Article() {
             <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
               <img
                 class="lg:h-48 md:h-36 w-full object-cover object-center"
-                src="https://www.dmoe.cc/random.php"
+                src="api/images"
                 alt="blog"
               />
-              <div class="p-6">
+              <div class="p-6 bg-red-300">
                 <h2 class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">
                   CATEGORY
                 </h2>

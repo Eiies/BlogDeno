@@ -4,24 +4,28 @@
 
 import * as $0 from "./routes/_404.tsx";
 import * as $1 from "./routes/_app.tsx";
-import * as $2 from "./routes/api/images.tsx";
-import * as $3 from "./routes/article/index.tsx";
-import * as $4 from "./routes/greet/[name].tsx";
-import * as $5 from "./routes/index.tsx";
-import * as $6 from "./routes/login.tsx";
-import * as $7 from "./routes/register.tsx";
+import * as $2 from "./routes/admin.tsx";
+import * as $3 from "./routes/api/article.tsx";
+import * as $4 from "./routes/api/images.tsx";
+import * as $5 from "./routes/article/index.tsx";
+import * as $6 from "./routes/greet/[name].tsx";
+import * as $7 from "./routes/index.tsx";
+import * as $8 from "./routes/login.tsx";
+import * as $9 from "./routes/register.tsx";
 import * as $$0 from "./islands/Wave.tsx";
 
 const manifest = {
   routes: {
     "./routes/_404.tsx": $0,
     "./routes/_app.tsx": $1,
-    "./routes/api/images.tsx": $2,
-    "./routes/article/index.tsx": $3,
-    "./routes/greet/[name].tsx": $4,
-    "./routes/index.tsx": $5,
-    "./routes/login.tsx": $6,
-    "./routes/register.tsx": $7,
+    "./routes/admin.tsx": $2,
+    "./routes/api/article.tsx": $3,
+    "./routes/api/images.tsx": $4,
+    "./routes/article/index.tsx": $5,
+    "./routes/greet/[name].tsx": $6,
+    "./routes/index.tsx": $7,
+    "./routes/login.tsx": $8,
+    "./routes/register.tsx": $9,
   },
   islands: {
     "./islands/Wave.tsx": $$0,

@@ -1,8 +1,8 @@
 import { HandlerContext } from "$fresh/server.ts";
 
 const IMAGES = [
-  //   "https://source.unsplash.com/random/740x300",
-  "https://www.dmoe.cc/random.php",
+  "https://source.unsplash.com/random/740x300",
+  // "https://www.dmoe.cc/random.php",
 ];
 
 export const handler = async (

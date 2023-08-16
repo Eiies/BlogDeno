@@ -20,10 +20,9 @@ export default function Home() {
         <main>
           <Hero />
           <Article />
-
           <Wave />
-          <Footer />
         </main>
+        <Footer />
       </body>
     </>
   );
