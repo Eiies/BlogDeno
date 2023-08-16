@@ -11,11 +11,11 @@ export default function Wave() {
   // 波浪配置
   const waveLayers = [
     {
-      amplitude: 20 + Math.random() * 10, // 调整振幅值范围
-      frequency: 0.01,
-      speed: 0.005, // 调整速度值
-      yOffset: 0.3, // 用相对值替代像素值
-      color: "rgba(36, 135, 218, 0.3)",
+      amplitude: 20 + Math.random() * 10, // 振幅，调整波浪的高度
+      frequency: 0.01, // 波浪的频率
+      speed: 0.005, // 波浪的速度
+      yOffset: 0.3, // 波浪的垂直偏移
+      color: "rgba(36, 135, 218, 0.3)", // 波浪的颜色
     },
     {
       amplitude: 30 + Math.random() * 10,
@@ -55,11 +55,11 @@ export default function Wave() {
       if (ctx) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         for (const wave of waveLayers) {
-          const amplitude = wave.amplitude * (canvas.width / 1440);
+          const amplitude = wave.amplitude * (canvas.width / 1440); // 根据屏幕宽度调整振幅
           let yOffset = wave.yOffset * canvas.height;
 
           if (isMouseOverCanvas) {
-            yOffset += (mousePosition.y - canvas.height / 2) * 0.1;
+            yOffset += (mousePosition.y - canvas.height / 2) * 0.1; // 鼠标位置影响波浪垂直偏移
           }
 
           ctx.beginPath();
@@ -111,16 +111,16 @@ export default function Wave() {
 
     animate();
 
-    canvas.addEventListener("mousemove", updateMousePosition);
-    canvas.addEventListener("mouseenter", handleMouseEnter);
-    canvas.addEventListener("mouseleave", handleMouseLeave);
+    canvas.addEventListener("mousemove", updateMousePosition); // 监听鼠标移动事件，更新鼠标位置
+    canvas.addEventListener("mouseenter", handleMouseEnter); // 监听鼠标进入画布事件，开始动画
+    canvas.addEventListener("mouseleave", handleMouseLeave); // 监听鼠标离开画布事件，停止动画
 
     return () => {
-      canvas.removeEventListener("mousemove", updateMousePosition);
-      canvas.removeEventListener("mouseenter", handleMouseEnter);
-      canvas.removeEventListener("mouseleave", handleMouseLeave);
+      canvas.removeEventListener("mousemove", updateMousePosition); // 移除鼠标移动事件监听器
+      canvas.removeEventListener("mouseenter", handleMouseEnter); // 移除鼠标进入画布事件监听器
+      canvas.removeEventListener("mouseleave", handleMouseLeave); // 移除鼠标离开画布事件监听器
       if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
+        cancelAnimationFrame(animationFrameId); // 取消动画帧请求
       }
     };
   }, []);
