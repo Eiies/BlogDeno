@@ -3,6 +3,7 @@ import { Header } from "../components/Header.tsx";
 import { Hero } from "../components/Hero.tsx";
 import Wave from "../islands/Wave.tsx";
 import { Article } from "../components/Article.tsx";
+import { Footer } from "../components/Footer.tsx";
 
 export default function Home() {
   return (
@@ -19,7 +20,9 @@ export default function Home() {
         <main>
           <Hero />
           <Article />
+
           <Wave />
+          <Footer />
         </main>
       </body>
     </>
