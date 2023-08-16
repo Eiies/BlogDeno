@@ -129,7 +129,7 @@ export default function Wave() {
     <canvas
       ref={canvasRef}
       id="waveCanvas"
-      className="h-96 w-full"
+      className="h-64 w-full"
     >
     </canvas>
   );
