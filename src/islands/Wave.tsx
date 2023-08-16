@@ -7,6 +7,8 @@ import {
 export default function Wave() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  // 波浪配置
   const waveLayers = [
     {
       amplitude: 20 + Math.random() * 10, // 调整振幅值范围
@@ -33,7 +35,7 @@ export default function Wave() {
     if (animationFrameId) {
       cancelAnimationFrame(animationFrameId);
     }
-    animate(); // 启动波浪跟随鼠标的效果
+    animate();
   };
 
   const handleMouseLeave = () => {
@@ -51,36 +53,43 @@ export default function Wave() {
     if (canvas) {
       const ctx = canvas.getContext("2d");
       if (ctx) {
-        if (ctx) {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          for (const wave of waveLayers) {
-            const amplitude = wave.amplitude * (canvas.width / 1440);
-            let yOffset = wave.yOffset * canvas.height;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (const wave of waveLayers) {
+          const amplitude = wave.amplitude * (canvas.width / 1440);
+          let yOffset = wave.yOffset * canvas.height;
 
-            if (isMouseOverCanvas) {
-              yOffset += (mousePosition.y - canvas.height / 2) * 0.1;
-            }
-
-            ctx.beginPath();
-            ctx.moveTo(0, canvas.height - yOffset);
-
-            for (let x = 0; x < canvas.width; x += 10) {
-              const y = canvas.height - yOffset +
-                Math.sin(x * wave.frequency + elapsedTime * wave.speed) *
-                  amplitude;
-              ctx.lineTo(x, y);
-            }
-
-            ctx.lineTo(canvas.width, canvas.height);
-            ctx.lineTo(0, canvas.height);
-            ctx.fillStyle = wave.color;
-            ctx.fill();
-            ctx.closePath();
+          if (isMouseOverCanvas) {
+            yOffset += (mousePosition.y - canvas.height / 2) * 0.1;
           }
 
-          animationFrameId = requestAnimationFrame(animate);
+          ctx.beginPath();
+          ctx.moveTo(0, canvas.height - yOffset);
+
+          for (let x = 0; x < canvas.width; x += 10) {
+            const y = canvas.height - yOffset +
+              Math.sin(x * wave.frequency + elapsedTime * wave.speed) *
+                amplitude;
+            ctx.lineTo(x, y);
+          }
+
+          ctx.lineTo(canvas.width, canvas.height);
+          ctx.lineTo(0, canvas.height);
+          ctx.fillStyle = wave.color;
+          ctx.fill();
+          ctx.closePath();
         }
+
+        animationFrameId = requestAnimationFrame(animate);
       }
+    }
+  };
+
+  const updateMousePosition = (e: MouseEvent) => {
+    const rect = canvasRef.current?.getBoundingClientRect();
+    if (rect) {
+      const mouseX = e.clientX - rect.left;
+      const mouseY = e.clientY - rect.top;
+      setMousePosition({ x: mouseX, y: mouseY });
     }
   };
 
@@ -99,21 +108,13 @@ export default function Wave() {
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    // 启动初始动画
-    animate();
 
-    const updateMousePosition = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      const mouseX = e.clientX - rect.left;
-      const mouseY = e.clientY - rect.top;
-      setMousePosition({ x: mouseX, y: mouseY });
-    };
+    animate();
 
     canvas.addEventListener("mousemove", updateMousePosition);
     canvas.addEventListener("mouseenter", handleMouseEnter);
     canvas.addEventListener("mouseleave", handleMouseLeave);
 
-    // 清除事件监听器和动画
     return () => {
       canvas.removeEventListener("mousemove", updateMousePosition);
       canvas.removeEventListener("mouseenter", handleMouseEnter);
